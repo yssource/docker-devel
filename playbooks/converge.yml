@@ -60,19 +60,11 @@
 
     - name: include role
       include_role:
-        name: bootstrap
-
-    - name: include role
-      include_role:
         name: python
 
     - name: include role
       include_role:
         name: ansible
-
-    - name: include role
-      include_role:
-        name: vim
 
     - name: include role
       include_role:
@@ -89,6 +81,25 @@
     - name: include role
       include_role:
         name: gosu
+
+    - name: include role
+      include_role:
+        name: sshd
+
+    - name: rm -rf /etc/ssh/ssh_host_*
+      raw: |
+        set -eu
+        rm -rf /etc/ssh/ssh_host_*
+      changed_when: false
+      failed_when: false
+
+    - name: include role
+      include_role:
+        name: bootstrap
+
+    - name: include role
+      include_role:
+        name: vim
 
     - name: include role
       include_role:
@@ -145,7 +156,3 @@
     - name: include role
       include_role:
         name: restic
-
-    - name: include role
-      include_role:
-        name: sshd
