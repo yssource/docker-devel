@@ -4,7 +4,11 @@
 
 ### Major Changes
 
-  - Upgrade minimal Ansible community package support to 4.1.0
+## 20210718.1.1 - 2021-07-18
+
+### Major Changes
+
+  - Upgrade minimal Ansible community package support to 4.2.0
 
 ## 20210602.1.1 - 2021-06-02
 
@@ -15,6 +19,8 @@
 
 ## 20210412.1.1 - 2021-04-12
 
-  - Packaging by Packer Docker builder and Ansible provisioner in single layer
-  - Handle `ENTRYPOINT` with [catatonit](https://github.com/openSUSE/catatonit)
+  - Packaging by Packer Docker builder and Ansible provisioner in single
+    layer
+  - Handle `ENTRYPOINT` with
+    [catatonit](https://github.com/openSUSE/catatonit)
   - Handle `CMD` with SSHD
