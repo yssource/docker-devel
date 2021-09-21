@@ -1,5 +1,7 @@
 # Docker Image Packaging for Development
 
+<img src="/alvistack.svg" width="75" alt="AlviStack">
+
 [![GitLab pipeline status](https://img.shields.io/gitlab/pipeline/alvistack/docker-devel/master)](https://gitlab.com/alvistack/docker-devel/-/pipelines)
 [![GitHub release](https://img.shields.io/github/release/alvistack/docker-devel.svg)](https://github.com/alvistack/docker-devel/releases)
 [![GitHub license](https://img.shields.io/github/license/alvistack/docker-devel.svg)](https://github.com/alvistack/docker-devel/blob/master/LICENSE)
