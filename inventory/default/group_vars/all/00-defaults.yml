@@ -15,16 +15,16 @@
 # limitations under the License.
 
 # mariadb
-mariadb_release: "10.4"
+mariadb_release: "10.6"
 
 # node
-node_release: "14"
+node_release: "16"
 
 # openjdk
 openjdk_release: "11"
 
 # php
-php_release: "7.4"
+php_release: "8.1"
 
 # postgres
-postgres_release: "12"
+postgres_release: "14"
