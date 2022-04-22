@@ -5,7 +5,7 @@
 [![GitLab pipeline status](https://img.shields.io/gitlab/pipeline/alvistack/docker-devel/master)](https://gitlab.com/alvistack/docker-devel/-/pipelines)
 [![GitHub tag](https://img.shields.io/github/tag/alvistack/docker-devel.svg)](https://github.com/alvistack/docker-devel/tags)
 [![GitHub license](https://img.shields.io/github/license/alvistack/docker-devel.svg)](https://github.com/alvistack/docker-devel/blob/master/LICENSE)
-[![Docker Pulls](https://img.shields.io/docker/pulls/alvistack/devel-20.04.svg)](https://hub.docker.com/r/alvistack/devel-20.04)
+[![Docker Pulls](https://img.shields.io/docker/pulls/alvistack/devel-22.04.svg)](https://hub.docker.com/r/alvistack/devel-22.04)
 
 Ubuntu is a Debian-based Linux operating system that runs from the desktop to the cloud, to all your internet connected things. It is the world's most popular operating system across public clouds and OpenStack clouds. It is the number one platform for containers; from Docker to Kubernetes to LXD, Ubuntu can run your containers at scale. Fast, secure and simple, Ubuntu powers millions of PCs worldwide.
 
@@ -13,6 +13,8 @@ Learn more about Ubuntu: <https://ubuntu.com/>
 
 ## Supported Tags and Respective Packer Template Links
 
+  - [`alvistack/devel-22.04`](https://hub.docker.com/r/alvistack/devel-22.04)
+      - [`packer/docker-22.04/packer.json`](https://github.com/alvistack/docker-devel/blob/master/packer/docker-22.04/packer.json)
   - [`alvistack/devel-20.04`](https://hub.docker.com/r/alvistack/devel-20.04)
       - [`packer/docker-20.04/packer.json`](https://github.com/alvistack/docker-devel/blob/master/packer/docker-20.04/packer.json)
   - [`alvistack/devel-18.04`](https://hub.docker.com/r/alvistack/devel-18.04)
@@ -33,14 +35,14 @@ Based on [Official Ubuntu Docker Image](https://hub.docker.com/_/ubuntu/) with s
 Start SSHD:
 
     # Pull latest image
-    docker pull alvistack/devel-20.04
+    docker pull alvistack/devel-22.04
     
     # Run as detach
     docker run \
         -itd \
         --name devel \
         --publish 2222:22 \
-        alvistack/devel-20.04
+        alvistack/devel-22.04
 
 **Success**. SSHD is now available on port `2222`.
 
