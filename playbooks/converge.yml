@@ -62,31 +62,31 @@
 
     - name: include role
       ansible.builtin.include_role:
-        name: python
+        name: alvistack.python
 
     - name: include role
       ansible.builtin.include_role:
-        name: ansible
+        name: alvistack.ansible
 
     - name: include role
       ansible.builtin.include_role:
-        name: locales
+        name: alvistack.locales
 
     - name: include role
       ansible.builtin.include_role:
-        name: timezone
+        name: alvistack.timezone
 
     - name: include role
       ansible.builtin.include_role:
-        name: catatonit
+        name: alvistack.catatonit
 
     - name: include role
       ansible.builtin.include_role:
-        name: gosu
+        name: alvistack.gosu
 
     - name: include role
       ansible.builtin.include_role:
-        name: sshd
+        name: alvistack.sshd
 
     - name: rm -rf /etc/ssh/ssh_host_*
       ansible.builtin.raw: |
@@ -97,64 +97,64 @@
 
     - name: include role
       ansible.builtin.include_role:
-        name: bootstrap
+        name: alvistack.bootstrap
 
     - name: include role
       ansible.builtin.include_role:
-        name: vim
+        name: alvistack.vim
 
     - name: include role
       ansible.builtin.include_role:
-        name: cvs
+        name: alvistack.cvs
 
     - name: include role
       ansible.builtin.include_role:
-        name: svn
+        name: alvistack.svn
 
     - name: include role
       ansible.builtin.include_role:
-        name: git
+        name: alvistack.git
 
     - name: include role
       ansible.builtin.include_role:
-        name: mercurial
+        name: alvistack.mercurial
 
     - name: include role
       ansible.builtin.include_role:
-        name: perforce
+        name: alvistack.perforce
 
     - name: include role
       ansible.builtin.include_role:
-        name: sqlite
+        name: alvistack.sqlite
 
     - name: include role
       ansible.builtin.include_role:
-        name: mariadb
+        name: alvistack.mariadb
 
     - name: include role
       ansible.builtin.include_role:
-        name: postgres
+        name: alvistack.postgres
 
     - name: include role
       ansible.builtin.include_role:
-        name: openjdk
+        name: alvistack.openjdk
 
     - name: include role
       ansible.builtin.include_role:
-        name: node
+        name: alvistack.node
 
     - name: include role
       ansible.builtin.include_role:
-        name: php
+        name: alvistack.php
 
     - name: include role
       ansible.builtin.include_role:
-        name: httpd
+        name: alvistack.httpd
 
     - name: include role
       ansible.builtin.include_role:
-        name: rclone
+        name: alvistack.rclone
 
     - name: include role
       ansible.builtin.include_role:
-        name: restic
+        name: alvistack.restic
