@@ -13,18 +13,3 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-# mariadb
-mariadb_release: "10.6"
-
-# node
-node_release: "16"
-
-# openjdk
-openjdk_release: "11"
-
-# php
-php_release: "8.1"
-
-# postgres
-postgres_release: "14"
