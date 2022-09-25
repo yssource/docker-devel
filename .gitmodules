@@ -6,9 +6,29 @@
 	path = roles/bootstrap
 	url = https://github.com/alvistack/ansible-role-bootstrap.git
 	branch = develop
+[submodule "roles/buildah"]
+	path = roles/buildah
+	url = https://github.com/alvistack/ansible-role-buildah.git
+	branch = develop
 [submodule "roles/catatonit"]
 	path = roles/catatonit
 	url = https://github.com/alvistack/ansible-role-catatonit.git
+	branch = develop
+[submodule "roles/conmon"]
+	path = roles/conmon
+	url = https://github.com/alvistack/ansible-role-conmon.git
+	branch = develop
+[submodule "roles/containernetworking_plugins"]
+	path = roles/containernetworking_plugins
+	url = https://github.com/alvistack/ansible-role-containernetworking_plugins.git
+	branch = develop
+[submodule "roles/containers_common"]
+	path = roles/containers_common
+	url = https://github.com/alvistack/ansible-role-containers_common.git
+	branch = develop
+[submodule "roles/crun"]
+	path = roles/crun
+	url = https://github.com/alvistack/ansible-role-crun.git
 	branch = develop
 [submodule "roles/cvs"]
 	path = roles/cvs
@@ -18,6 +38,10 @@
 	path = roles/git
 	url = https://github.com/alvistack/ansible-role-git.git
 	branch = develop
+[submodule "roles/gitlab_runner"]
+	path = roles/gitlab_runner
+	url = https://github.com/alvistack/ansible-role-gitlab_runner.git
+	branch = develop
 [submodule "roles/gosu"]
 	path = roles/gosu
 	url = https://github.com/alvistack/ansible-role-gosu.git
@@ -25,6 +49,10 @@
 [submodule "roles/httpd"]
 	path = roles/httpd
 	url = https://github.com/alvistack/ansible-role-httpd.git
+	branch = develop
+[submodule "roles/libvirt"]
+	path = roles/libvirt
+	url = https://github.com/alvistack/ansible-role-libvirt.git
 	branch = develop
 [submodule "roles/locales"]
 	path = roles/locales
@@ -38,6 +66,10 @@
 	path = roles/mercurial
 	url = https://github.com/alvistack/ansible-role-mercurial.git
 	branch = develop
+[submodule "roles/molecule"]
+	path = roles/molecule
+	url = https://github.com/alvistack/ansible-role-molecule.git
+	branch = develop
 [submodule "roles/node"]
 	path = roles/node
 	url = https://github.com/alvistack/ansible-role-node.git
@@ -46,6 +78,10 @@
 	path = roles/openjdk
 	url = https://github.com/alvistack/ansible-role-openjdk.git
 	branch = develop
+[submodule "roles/packer"]
+	path = roles/packer
+	url = https://github.com/alvistack/ansible-role-packer.git
+	branch = develop
 [submodule "roles/perforce"]
 	path = roles/perforce
 	url = https://github.com/alvistack/ansible-role-perforce.git
@@ -53,6 +89,10 @@
 [submodule "roles/php"]
 	path = roles/php
 	url = https://github.com/alvistack/ansible-role-php.git
+	branch = develop
+[submodule "roles/podman"]
+	path = roles/podman
+	url = https://github.com/alvistack/ansible-role-podman.git
 	branch = develop
 [submodule "roles/postgres"]
 	path = roles/postgres
@@ -70,6 +110,10 @@
 	path = roles/restic
 	url = https://github.com/alvistack/ansible-role-restic.git
 	branch = develop
+[submodule "roles/skopeo"]
+	path = roles/skopeo
+	url = https://github.com/alvistack/ansible-role-skopeo.git
+	branch = develop
 [submodule "roles/sqlite"]
 	path = roles/sqlite
 	url = https://github.com/alvistack/ansible-role-sqlite.git
@@ -86,7 +130,15 @@
 	path = roles/timezone
 	url = https://github.com/alvistack/ansible-role-timezone.git
 	branch = develop
+[submodule "roles/vagrant"]
+	path = roles/vagrant
+	url = https://github.com/alvistack/ansible-role-vagrant.git
+	branch = develop
 [submodule "roles/vim"]
 	path = roles/vim
 	url = https://github.com/alvistack/ansible-role-vim.git
+	branch = develop
+[submodule "roles/virtualbox"]
+	path = roles/virtualbox
+	url = https://github.com/alvistack/ansible-role-virtualbox.git
 	branch = develop

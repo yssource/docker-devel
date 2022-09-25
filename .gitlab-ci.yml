@@ -31,6 +31,17 @@
     sh -x -c "ansible --version"
     sh -x -c "ansible-lint --version"
 
+.script-bootstrap-molecule: &script-bootstrap-molecule
+  - |
+    if ! [[ -x "$(command -v molecule)" ]]; then
+      export DEBIAN_FRONTEND="noninteractive"
+      echo "deb http://downloadcontent.opensuse.org/repositories/home:/alvistack/xUbuntu_22.04/ /" | sudo tee /etc/apt/sources.list.d/home:alvistack.list
+      curl -fsSL https://downloadcontent.opensuse.org/repositories/home:alvistack/xUbuntu_22.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_alvistack.gpg > /dev/null
+      sudo -E apt-get update
+      sudo -E apt-get install -y python3-molecule python3-molecule-docker python3-molecule-vagrant
+    fi
+    sh -x -c "molecule --version"
+
 .script-bootstrap-docker: &script-bootstrap-docker
   - |
     if ! [[ -x "$(command -v docker)" ]]; then
@@ -104,22 +115,22 @@ default:
   before_script:
     - *script-git-submodule
 
-build:docker-22.10:
+build:devel-22.10-docker:
   <<: *job-packer-build
   stage: build
   cache:
-    key: "$CI_PIPELINE_ID-docker-22.10"
+    key: "$CI_PIPELINE_ID-devel-22.10-docker"
     paths:
       - packer/*/output-docker
   variables:
     _PACKER_BUILDER_PROVIDER: "docker"
     _PACKER_BUILDER_VERSION: "22.10"
 
-deploy:docker-22.10:
+deploy:devel-22.10-docker:
   <<: *job-docker-push
   stage: deploy
   cache:
-    key: "$CI_PIPELINE_ID-docker-22.10"
+    key: "$CI_PIPELINE_ID-devel-22.10-docker"
     paths:
       - packer/*/output-docker
     policy: pull
@@ -127,24 +138,24 @@ deploy:docker-22.10:
     _PACKER_BUILDER_PROVIDER: "docker"
     _PACKER_BUILDER_VERSION: "22.10"
   needs:
-    - build:docker-22.10
+    - build:devel-22.10-docker
 
-build:docker-22.04:
+build:devel-22.04-docker:
   <<: *job-packer-build
   stage: build
   cache:
-    key: "$CI_PIPELINE_ID-docker-22.04"
+    key: "$CI_PIPELINE_ID-devel-22.04-docker"
     paths:
       - packer/*/output-docker
   variables:
     _PACKER_BUILDER_PROVIDER: "docker"
     _PACKER_BUILDER_VERSION: "22.04"
 
-deploy:docker-22.04:
+deploy:devel-22.04-docker:
   <<: *job-docker-push
   stage: deploy
   cache:
-    key: "$CI_PIPELINE_ID-docker-22.04"
+    key: "$CI_PIPELINE_ID-devel-22.04-docker"
     paths:
       - packer/*/output-docker
     policy: pull
@@ -152,24 +163,24 @@ deploy:docker-22.04:
     _PACKER_BUILDER_PROVIDER: "docker"
     _PACKER_BUILDER_VERSION: "22.04"
   needs:
-    - build:docker-22.04
+    - build:devel-22.04-docker
 
-build:docker-20.04:
+build:devel-20.04-docker:
   <<: *job-packer-build
   stage: build
   cache:
-    key: "$CI_PIPELINE_ID-docker-20.04"
+    key: "$CI_PIPELINE_ID-devel-20.04-docker"
     paths:
       - packer/*/output-docker
   variables:
     _PACKER_BUILDER_PROVIDER: "docker"
     _PACKER_BUILDER_VERSION: "20.04"
 
-deploy:docker-20.04:
+deploy:devel-20.04-docker:
   <<: *job-docker-push
   stage: deploy
   cache:
-    key: "$CI_PIPELINE_ID-docker-20.04"
+    key: "$CI_PIPELINE_ID-devel-20.04-docker"
     paths:
       - packer/*/output-docker
     policy: pull
@@ -177,24 +188,24 @@ deploy:docker-20.04:
     _PACKER_BUILDER_PROVIDER: "docker"
     _PACKER_BUILDER_VERSION: "20.04"
   needs:
-    - build:docker-20.04
+    - build:devel-20.04-docker
 
-build:docker-18.04:
+build:devel-18.04-docker:
   <<: *job-packer-build
   stage: build
   cache:
-    key: "$CI_PIPELINE_ID-docker-18.04"
+    key: "$CI_PIPELINE_ID-devel-18.04-docker"
     paths:
       - packer/*/output-docker
   variables:
     _PACKER_BUILDER_PROVIDER: "docker"
     _PACKER_BUILDER_VERSION: "18.04"
 
-deploy:docker-18.04:
+deploy:devel-18.04-docker:
   <<: *job-docker-push
   stage: deploy
   cache:
-    key: "$CI_PIPELINE_ID-docker-18.04"
+    key: "$CI_PIPELINE_ID-devel-18.04-docker"
     paths:
       - packer/*/output-docker
     policy: pull
@@ -202,4 +213,4 @@ deploy:docker-18.04:
     _PACKER_BUILDER_PROVIDER: "docker"
     _PACKER_BUILDER_VERSION: "18.04"
   needs:
-    - build:docker-18.04
+    - build:devel-18.04-docker
