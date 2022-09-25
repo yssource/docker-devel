@@ -86,6 +86,8 @@
         set -eu
         apt-get update
         DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y
+      args:
+        executable: "/bin/bash"
       changed_when: false
       failed_when: false
 
@@ -94,6 +96,8 @@
         set -eu
         yum makecache
         yum update -y
+      args:
+        executable: "/bin/bash"
       changed_when: false
       failed_when: false
 
@@ -102,5 +106,16 @@
         set -eu
         zypper -n --gpg-auto-import-keys refresh
         zypper -n dist-upgrade -y --allow-vendor-change
+      args:
+        executable: "/bin/bash"
+      changed_when: false
+      failed_when: false
+
+    - name: rm -rf /etc/ssh/ssh_host_*
+      ansible.builtin.raw: |
+        set -eu
+        rm -rf /etc/ssh/ssh_host_*
+      args:
+        executable: "/bin/bash"
       changed_when: false
       failed_when: false
