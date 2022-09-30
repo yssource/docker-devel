@@ -73,8 +73,21 @@
 .script-packer-build: &script-packer-build
   - |
     echo $DOCKER_HUB_TOKEN | sudo -E docker login --username=$DOCKER_HUB_USERNAME --password-stdin
-    cd $CI_PROJECT_DIR/packer/$_PACKER_BUILDER_PROVIDER-$_PACKER_BUILDER_VERSION
+    cd $CI_PROJECT_DIR/packer/$_IMAGE-$_PROVIDER
     sudo -E packer build packer.json
+
+.script-docker-push: &script-docker-load
+  - |
+    cd $CI_PROJECT_DIR/packer/$_IMAGE-$_PROVIDER
+    zcat output-docker/image.tar.gz | sudo -E docker load
+    export _ORG="$CI_PROJECT_NAMESPACE"
+    export _ID="$(sudo -E docker images | awk '{ print $3 }' | awk 'NR==2')"
+    sudo -E docker tag $_ID $_ORG/$_IMAGE:latest
+
+.script-molecule-test: &script-molecule-test
+  - |
+    export _MOLECULE_INSTANCE_NAME="$(pwgen -1AB 12)"
+    sudo -E molecule test -s $_IMAGE-$_PROVIDER
 
 .script-docker-push: &script-docker-push
   - |
@@ -86,10 +99,7 @@
       exit 0
     fi
     echo $DOCKER_HUB_TOKEN | sudo -E docker login --username=$DOCKER_HUB_USERNAME --password-stdin
-    cd $CI_PROJECT_DIR/packer/$_PACKER_BUILDER_PROVIDER-$_PACKER_BUILDER_VERSION
     export _ORG="$CI_PROJECT_NAMESPACE"
-    export _IMAGE="$(echo $CI_PROJECT_NAME | sed 's/^docker-//g')-$_PACKER_BUILDER_VERSION"
-    zcat output-docker/image.tar.gz | sudo -E docker load
     export _ID="$(sudo -E docker images | awk '{ print $3 }' | awk 'NR==2')"
     sudo -E docker tag $_ID $_ORG/$_IMAGE:latest
     sudo -E docker push $_ORG/$_IMAGE:latest
@@ -105,9 +115,19 @@
     - *script-linters
     - *script-packer-build
 
+.job-molecule-test: &job-molecule-test
+  script:
+    - *script-bootstrap-python
+    - *script-bootstrap-ansible
+    - *script-bootstrap-molecule
+    - *script-bootstrap-docker
+    - *script-docker-load
+    - *script-molecule-test
+
 .job-docker-push: &job-docker-push
   script:
     - *script-bootstrap-docker
+    - *script-docker-load
     - *script-docker-push
 
 default:
@@ -123,8 +143,22 @@ build:devel-22.10-docker:
     paths:
       - packer/*/output-docker
   variables:
-    _PACKER_BUILDER_PROVIDER: "docker"
-    _PACKER_BUILDER_VERSION: "22.10"
+    _IMAGE: "devel-22.10"
+    _PROVIDER: "docker"
+
+test:devel-22.10-docker:
+  <<: *job-molecule-test
+  stage: test
+  cache:
+    key: "$CI_PIPELINE_ID-devel-22.10-docker"
+    paths:
+      - packer/*/output-docker
+    policy: pull
+  variables:
+    _IMAGE: "devel-22.10"
+    _PROVIDER: "docker"
+  needs:
+    - build:devel-22.10-docker
 
 deploy:devel-22.10-docker:
   <<: *job-docker-push
@@ -135,10 +169,10 @@ deploy:devel-22.10-docker:
       - packer/*/output-docker
     policy: pull
   variables:
-    _PACKER_BUILDER_PROVIDER: "docker"
-    _PACKER_BUILDER_VERSION: "22.10"
+    _IMAGE: "devel-22.10"
+    _PROVIDER: "docker"
   needs:
-    - build:devel-22.10-docker
+    - test:devel-22.10-docker
 
 build:devel-22.04-docker:
   <<: *job-packer-build
@@ -148,8 +182,22 @@ build:devel-22.04-docker:
     paths:
       - packer/*/output-docker
   variables:
-    _PACKER_BUILDER_PROVIDER: "docker"
-    _PACKER_BUILDER_VERSION: "22.04"
+    _IMAGE: "devel-22.04"
+    _PROVIDER: "docker"
+
+test:devel-22.04-docker:
+  <<: *job-molecule-test
+  stage: test
+  cache:
+    key: "$CI_PIPELINE_ID-devel-22.04-docker"
+    paths:
+      - packer/*/output-docker
+    policy: pull
+  variables:
+    _IMAGE: "devel-22.04"
+    _PROVIDER: "docker"
+  needs:
+    - build:devel-22.04-docker
 
 deploy:devel-22.04-docker:
   <<: *job-docker-push
@@ -160,10 +208,10 @@ deploy:devel-22.04-docker:
       - packer/*/output-docker
     policy: pull
   variables:
-    _PACKER_BUILDER_PROVIDER: "docker"
-    _PACKER_BUILDER_VERSION: "22.04"
+    _IMAGE: "devel-22.04"
+    _PROVIDER: "docker"
   needs:
-    - build:devel-22.04-docker
+    - test:devel-22.04-docker
 
 build:devel-20.04-docker:
   <<: *job-packer-build
@@ -173,8 +221,22 @@ build:devel-20.04-docker:
     paths:
       - packer/*/output-docker
   variables:
-    _PACKER_BUILDER_PROVIDER: "docker"
-    _PACKER_BUILDER_VERSION: "20.04"
+    _IMAGE: "devel-20.04"
+    _PROVIDER: "docker"
+
+test:devel-20.04-docker:
+  <<: *job-molecule-test
+  stage: test
+  cache:
+    key: "$CI_PIPELINE_ID-devel-20.04-docker"
+    paths:
+      - packer/*/output-docker
+    policy: pull
+  variables:
+    _IMAGE: "devel-20.04"
+    _PROVIDER: "docker"
+  needs:
+    - build:devel-20.04-docker
 
 deploy:devel-20.04-docker:
   <<: *job-docker-push
@@ -185,10 +247,10 @@ deploy:devel-20.04-docker:
       - packer/*/output-docker
     policy: pull
   variables:
-    _PACKER_BUILDER_PROVIDER: "docker"
-    _PACKER_BUILDER_VERSION: "20.04"
+    _IMAGE: "devel-20.04"
+    _PROVIDER: "docker"
   needs:
-    - build:devel-20.04-docker
+    - test:devel-20.04-docker
 
 build:devel-18.04-docker:
   <<: *job-packer-build
@@ -198,8 +260,22 @@ build:devel-18.04-docker:
     paths:
       - packer/*/output-docker
   variables:
-    _PACKER_BUILDER_PROVIDER: "docker"
-    _PACKER_BUILDER_VERSION: "18.04"
+    _IMAGE: "devel-18.04"
+    _PROVIDER: "docker"
+
+test:devel-18.04-docker:
+  <<: *job-molecule-test
+  stage: test
+  cache:
+    key: "$CI_PIPELINE_ID-devel-18.04-docker"
+    paths:
+      - packer/*/output-docker
+    policy: pull
+  variables:
+    _IMAGE: "devel-18.04"
+    _PROVIDER: "docker"
+  needs:
+    - build:devel-18.04-docker
 
 deploy:devel-18.04-docker:
   <<: *job-docker-push
@@ -210,7 +286,7 @@ deploy:devel-18.04-docker:
       - packer/*/output-docker
     policy: pull
   variables:
-    _PACKER_BUILDER_PROVIDER: "docker"
-    _PACKER_BUILDER_VERSION: "18.04"
+    _IMAGE: "devel-18.04"
+    _PROVIDER: "docker"
   needs:
-    - build:devel-18.04-docker
+    - test:devel-18.04-docker

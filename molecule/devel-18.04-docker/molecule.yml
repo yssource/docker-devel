@@ -15,26 +15,11 @@
 # limitations under the License.
 
 driver:
-  name: vagrant
-  provider:
-    name: libvirt
-  provision: true
+  name: podman
 platforms:
   - name: ${_MOLECULE_INSTANCE_NAME}-1
     box: alvistack/devel-18.04
-    cpu: 2
-    memory: 8192
-    provider_raw_config_args:
-      - "cpu_mode = 'host-passthrough'"
-      - "disk_bus = 'virtio'"
-      - "nic_model_type = 'virtio'"
-      - "video_type = 'virtio'"
-      - "disk_driver :cache => 'writeback'"
-      - "storage :file, bus: 'virtio', cache: 'writeback'"
-    instance_raw_config_args:
-      - "vm.box_check_update = false"
-      - "vm.provision :shell, inline: 'systemctl stop guestfs-firstboot.service'"
-      - "vm.provision :shell, inline: 'systemctl disable guestfs-firstboot.service'"
+    pre_build_image: true
 lint: |
   set -euxo pipefail
   yamllint .
