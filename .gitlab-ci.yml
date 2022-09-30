@@ -76,7 +76,7 @@
     cd $CI_PROJECT_DIR/packer/$_IMAGE-$_PROVIDER
     sudo -E packer build packer.json
 
-.script-docker-push: &script-docker-load
+.script-docker-load: &script-docker-load
   - |
     cd $CI_PROJECT_DIR/packer/$_IMAGE-$_PROVIDER
     zcat output-docker/image.tar.gz | sudo -E docker load
