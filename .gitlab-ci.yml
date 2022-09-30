@@ -78,8 +78,7 @@
 
 .script-docker-load: &script-docker-load
   - |
-    cd $CI_PROJECT_DIR/packer/$_IMAGE-$_PROVIDER
-    zcat output-docker/image.tar.gz | sudo -E docker load
+    zcat $CI_PROJECT_DIR/packer/$_IMAGE-$_PROVIDER/output-docker/image.tar.gz | sudo -E docker load
     export _ORG="$CI_PROJECT_NAMESPACE"
     export _ID="$(sudo -E docker images | awk '{ print $3 }' | awk 'NR==2')"
     sudo -E docker tag $_ID $_ORG/$_IMAGE:latest
