@@ -68,6 +68,13 @@
       "playbook_file": "./packer.yml",
       "type": "ansible",
       "user": "root"
+    },
+    {
+      "inline": [
+        "set -eu",
+        "rm -rf /etc/ssh/ssh_host_*"
+      ],
+      "type": "shell"
     }
   ]
 }
