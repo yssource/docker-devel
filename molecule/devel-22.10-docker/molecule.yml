@@ -18,7 +18,7 @@ driver:
   name: podman
 platforms:
   - name: ${_MOLECULE_INSTANCE_NAME}-1
-    box: alvistack/devel-22.10
+    image: alvistack/devel-22.10
     pre_build_image: true
 lint: |
   set -euxo pipefail
