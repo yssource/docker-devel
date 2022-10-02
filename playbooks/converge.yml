@@ -208,9 +208,10 @@
       become_user: "vagrant"
       environment:
         PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-      ansible.builtin.shell: |
-        set -euxo pipefail
-        vagrant plugin install vagrant-libvirt
+      ansible.builtin.shell:
+        cmd: |
+          set -euxo pipefail
+          vagrant plugin install vagrant-libvirt
       args:
         executable: "/bin/bash"
       register: result
